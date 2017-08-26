@@ -9,10 +9,14 @@ if(!file.exists("household_power_consumption.txt")){
     unzip("data.zip")
 }
 
-pwConsumption <- read.table("household_power_consumption.txt", sep = ";", header = TRUE, na.strings = "?")
+powerConsumption <- read.table("household_power_consumption.txt", sep = ";", header = TRUE, na.strings = "?")
 
-pwConsumption <- mutate(pwConsumption, formatDate = dmy(Date))
+powerConsumption <- mutate(powerConsumption, formatedDate = dmy(Date))
 
-pwConsumption <- filter(pwConsumption, formatDate == dmy("01/02/2007") | formatDate == dmy("02/02/2007"))
+powerConsumption <- filter(powerConsumption, formatedDate == dmy("01/02/2007") | formatedDate == dmy("02/02/2007"))
 
-View(pwConsumption)
+png("plot1.png", width = 480, height = 480)
+
+hist(powerConsumption$Global_active_power, col = "red", xlab = "Global Active Power (kilowatts)", main = "Global Active Power")
+
+dev.off()
